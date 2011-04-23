@@ -21,6 +21,7 @@ License:
 CONTENTS						*wim-contents*
 
 Introduction		|wim-introduction|
+Requirements		|wim-requirements|
 Interface			|wim-interface|
   Keymappings		|wim-keymappings|
   Variables			|wim-variables|
@@ -31,6 +32,15 @@ Changelog			|wim-changelog|
 
 ==============================================================================
 INTRODUCTION						*wim-introduction* {{{
+}}}
+==============================================================================
+REQUIREMENTS						*wim-requirements* {{{
+
+- wwwrenderer.vim
+  - https://github.com/mattn/wwwrenderer-vim
+- openbuf.vim
+  - https://github.com/thinca/vim-openbuf
+
 }}}
 ==============================================================================
 INTERFACE				*wim-interface* {{{
