@@ -60,8 +60,17 @@ endfunction "}}}
 
 
 
-function! s:create_wim() "{{{
-    return deepcopy(s:wim)
+function! s:create_wim(...) "{{{
+    let wim = deepcopy(s:wim)
+    if a:0 ==# 1 && type(a:1) ==# type({})
+        let constant = '^[A-Z_]\+$'
+        for _ in filter(keys(s:wim), 'v:val =~# constant')
+            if has_key(a:1, _)
+                let wim[_] = a:1[_]
+            endif
+        endfor
+    endif
+    return wim
 endfunction "}}}
 
 function! s:wim_open_buffer() dict "{{{
