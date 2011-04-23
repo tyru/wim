@@ -14,14 +14,16 @@ endfunction "}}}
 
 function! wim#open(q_args) "{{{
     let wim = s:create_wim()
-    let nr = wim.open_buffer()
-    if nr ==# -1
-        call s:echomsg(
-        \   'ErrorMsg',
-        \   "wim: error: can't open wim buffer.")
-        return
+    if !wim.buffer_exists()
+        let nr = wim.open_buffer()
+        if nr ==# -1
+            call s:echomsg(
+            \   'ErrorMsg',
+            \   "wim: error: can't open wim buffer.")
+            return
+        endif
+        call wim.setup_buffer()
     endif
-    call wim.setup_buffer()
     if !empty(a:q_args)
         call wim.open_url(a:q_args)
     endif
@@ -118,6 +120,10 @@ endfunction
 function! s:wim_render_buffer_text(buffer_text)
 endfunction
 
+function! s:wim_buffer_exists() dict
+    return bufnr(self.BUFFER_NAME) !=# -1
+endfunction
+
 let s:wim = {
 \   'BUFFER_NAME': '___w_i_m___',
 \   'OPEN_BUFFER_COMMAND': 'vnew',
@@ -126,6 +132,7 @@ let s:wim = {
 \   'open_buffer': s:local_func('wim_open_buffer'),
 \   'setup_buffer': s:local_func('wim_setup_buffer'),
 \   'open_url': s:local_func('wim_open_url'),
+\   'buffer_exists': s:local_func('wim_buffer_exists'),
 \}
 
 " }}}
