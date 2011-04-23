@@ -62,6 +62,8 @@ endfunction "}}}
 
 function! s:wim_create_instance(...) "{{{
     let wim = deepcopy(s:wim)
+    let wim.openbuf = openbuf#new('wim')
+
     if a:0 ==# 1 && type(a:1) ==# type({})
         let constant = '^[A-Z_]\+$'
         for _ in filter(keys(s:wim), 'v:val =~# constant')
@@ -70,21 +72,21 @@ function! s:wim_create_instance(...) "{{{
             endif
         endfor
     endif
+
     return wim
 endfunction "}}}
 
 function! s:wim_open_buffer() dict "{{{
-    let nr = bufnr(self.BUFFER_NAME)
-    if nr ==# -1
-        try
-            execute self.OPEN_BUFFER_COMMAND
-            let nr = bufnr('%')
-            silent file `=self.BUFFER_NAME`
-        catch
-            " TODO: any error message?
-        endtry
-    endif
-    return nr
+    try
+        call self.openbuf.open({
+        \   'bufname': self.BUFFER_NAME,
+        \   'opener': self.OPEN_BUFFER_COMMAND,
+        \   'silent': 1,
+        \})
+        return bufnr('%')
+    catch
+        return -1
+    endtry
 endfunction "}}}
 
 function! s:wim_setup_buffer() dict "{{{
