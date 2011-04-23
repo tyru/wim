@@ -99,7 +99,10 @@ function! s:wim_open_url(url) dict
     if empty(buffer_text)
         return
     endif
-    call s:wim_render_buffer_text(buffer_text)
+
+    if bufnr(self.BUFFER_NAME) ==# bufnr('%')
+        call s:wim_render_buffer_text(buffer_text)
+    endif
 
     redraw
     echo 'opening' a:url '...Done.'
@@ -118,6 +121,14 @@ function! s:wim_get_buffer_text(url)
 endfunction
 
 function! s:wim_render_buffer_text(buffer_text)
+    let save = &l:modifiable
+    let &l:modifiable = 1
+    try
+        %delete _
+        call setline(1, split(a:buffer_text, '\n'))
+    catch
+        let &l:modifiable = save
+    endtry
 endfunction
 
 function! s:wim_buffer_exists() dict
