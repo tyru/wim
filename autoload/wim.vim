@@ -8,6 +8,7 @@ set cpo&vim
 
 
 " Interface {{{
+
 function! wim#load() "{{{
     " dummy function to load this script.
 endfunction "}}}
@@ -34,6 +35,16 @@ endfunction "}}}
 
 " Implementation {{{
 
+" s:SID_PREFIX {{{
+function! s:SID()
+    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
+endfunction
+
+let s:SID_PREFIX = s:SID()
+delfunction s:SID
+" }}}
+
+
 function! s:echomsg(hl, msg) abort "{{{
     execute 'echohl' a:hl
     try
@@ -43,23 +54,17 @@ function! s:echomsg(hl, msg) abort "{{{
     endtry
 endfunction "}}}
 
-
-function! s:SID()
-    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
-endfunction
-let s:SID_PREFIX = s:SID()
-delfunction s:SID
-
 function! s:local_func(name) "{{{
     return function('<SNR>' . s:SID_PREFIX . '_' . a:name)
 endfunction "}}}
 
 
-function! s:create_wim()
-    return deepcopy(s:wim)
-endfunction
 
-function! s:wim_open_buffer() dict
+function! s:create_wim() "{{{
+    return deepcopy(s:wim)
+endfunction "}}}
+
+function! s:wim_open_buffer() dict "{{{
     let nr = bufnr(self.BUFFER_NAME)
     if nr ==# -1
         try
@@ -71,9 +76,9 @@ function! s:wim_open_buffer() dict
         endtry
     endif
     return nr
-endfunction
+endfunction "}}}
 
-function! s:wim_setup_buffer() dict
+function! s:wim_setup_buffer() dict "{{{
     " Options
     setlocal bufhidden=wipe
     setlocal buftype=nofile
@@ -89,9 +94,9 @@ function! s:wim_setup_buffer() dict
 
     " Load wim specific settings.
     setfiletype wim
-endfunction
+endfunction "}}}
 
-function! s:wim_open_url(url) dict
+function! s:wim_open_url(url) dict "{{{
     redraw
     echo 'opening' a:url '...'
 
@@ -108,9 +113,9 @@ function! s:wim_open_url(url) dict
 
     redraw
     echo 'opening' a:url '...Done.'
-endfunction
+endfunction "}}}
 
-function! s:wim_get_buffer_text(url)
+function! s:wim_get_buffer_text(url) "{{{
     try
         " let url = urilib#new_from_uri_like_string(a:url).to_string()
         return wwwrenderer#render(a:url)
@@ -120,9 +125,9 @@ function! s:wim_get_buffer_text(url)
         call s:echomsg('WarningMsg', 'v:throwpoint = '.v:throwpoint)
         return ''
     endtry
-endfunction
+endfunction "}}}
 
-function! s:wim_render_buffer_text(buffer_text)
+function! s:wim_render_buffer_text(buffer_text) "{{{
     let save = &l:modifiable
     let &l:modifiable = 1
     try
@@ -131,11 +136,11 @@ function! s:wim_render_buffer_text(buffer_text)
     catch
         let &l:modifiable = save
     endtry
-endfunction
+endfunction "}}}
 
-function! s:wim_buffer_exists() dict
+function! s:wim_buffer_exists() dict "{{{
     return bufnr(self.BUFFER_NAME) !=# -1
-endfunction
+endfunction "}}}
 
 let s:wim = {
 \   'BUFFER_NAME': '___w_i_m___',
