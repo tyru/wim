@@ -95,11 +95,13 @@ function! s:wim_open_url(url) dict
     redraw
     echo 'opening' a:url '...'
 
+    " Get buffer text (via wwwrenderer.vim).
     let buffer_text = s:wim_get_buffer_text(a:url)
     if empty(buffer_text)
         return
     endif
 
+    " Write the buffer text to wim buffer.
     if bufnr(self.BUFFER_NAME) ==# bufnr('%')
         call s:wim_render_buffer_text(buffer_text)
     endif
