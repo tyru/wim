@@ -72,7 +72,21 @@ function! s:wim_open_buffer() dict
 endfunction
 
 function! s:wim_setup_buffer() dict
-    " TODO
+    " Options
+    setlocal bufhidden=wipe
+    setlocal buftype=nofile
+    setlocal nobuflisted
+    setlocal nomodifiable
+    setlocal noswapfile
+
+    " Keymappings
+    nnoremap <Plug>(wim:open) :<C-u>WimOpen<Space>
+    if !self.NO_DEFAULT_KEYMAPPINGS
+        nmap o <Plug>(wim:open)
+    endif
+
+    " Load wim specific settings.
+    setfiletype wim
 endfunction
 
 function! s:wim_open_url(url) dict
@@ -83,6 +97,7 @@ endfunction
 let s:wim = {
 \   'BUFFER_NAME': '___w_i_m___',
 \   'OPEN_BUFFER_COMMAND': 'vnew',
+\   'NO_DEFAULT_KEYMAPPINGS': 0,
 \
 \   'open_buffer': s:local_func('wim_open_buffer'),
 \   'setup_buffer': s:local_func('wim_setup_buffer'),
