@@ -14,7 +14,7 @@ function! wim#load() "{{{
 endfunction "}}}
 
 function! wim#open(q_args) "{{{
-    let wim = s:create_wim()
+    let wim = s:wim_create_instance()
     if !wim.buffer_exists()
         let nr = wim.open_buffer()
         if nr ==# -1
@@ -60,7 +60,7 @@ endfunction "}}}
 
 
 
-function! s:create_wim(...) "{{{
+function! s:wim_create_instance(...) "{{{
     let wim = deepcopy(s:wim)
     if a:0 ==# 1 && type(a:1) ==# type({})
         let constant = '^[A-Z_]\+$'
