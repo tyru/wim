@@ -13,6 +13,10 @@ set cpo&vim
 " }}}
 
 
+command!
+\   -nargs=*
+\   WimOpen
+\   call wim#open(<q-args>)
 
 " Restore 'cpoptions' {{{
 let &cpo = s:save_cpo
