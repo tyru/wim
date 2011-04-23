@@ -1,4 +1,4 @@
-*wim.txt* *wim*
+*wim.txt* *wim* Web browser powered by wwwrenderer.vim
 
 Author:
   tyru <tyru.exe@gmail.com>
