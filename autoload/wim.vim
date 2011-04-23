@@ -128,7 +128,6 @@ endfunction "}}}
 
 function! s:wim_get_buffer_text(url) "{{{
     try
-        " let url = urilib#new_from_uri_like_string(a:url).to_string()
         return wwwrenderer#render(a:url)
     catch
         call s:echomsg('WarningMsg', 'wwwrenderer#render() throwed an exception.')
