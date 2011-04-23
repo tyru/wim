@@ -90,8 +90,32 @@ function! s:wim_setup_buffer() dict
 endfunction
 
 function! s:wim_open_url(url) dict
+    redraw
     echo 'opening' a:url '...'
+
+    let buffer_text = s:wim_get_buffer_text(a:url)
+    if empty(buffer_text)
+        return
+    endif
+    call s:wim_render_buffer_text(buffer_text)
+
+    redraw
     echo 'opening' a:url '...Done.'
+endfunction
+
+function! s:wim_get_buffer_text(url)
+    try
+        " let url = urilib#new_from_uri_like_string(a:url).to_string()
+        return wwwrenderer#render(a:url)
+    catch
+        call s:echomsg('WarningMsg', 'wwwrenderer#render() throwed an exception.')
+        call s:echomsg('WarningMsg', 'v:exception = '.v:exception)
+        call s:echomsg('WarningMsg', 'v:throwpoint = '.v:throwpoint)
+        return ''
+    endtry
+endfunction
+
+function! s:wim_render_buffer_text(buffer_text)
 endfunction
 
 let s:wim = {
