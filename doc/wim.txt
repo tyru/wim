@@ -52,6 +52,12 @@ COMMANDS					*wim-commands* {{{
 }}}
 ==============================================================================
 TODO						*wim-todo* {{{
+
+- Colors (css, html)
+- Click a link
+- Back/Forward history
+- conceal? (http://twitter.com/mattn_jp/statuses/60278527093784576)
+
 }}}
 ==============================================================================
 CHANGELOG						*wim-changelog* {{{
