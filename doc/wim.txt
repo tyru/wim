@@ -27,7 +27,6 @@ Interface			|wim-interface|
   Commands			|wim-commands|
 TODO				|wim-todo|
 Changelog			|wim-changelog|
-Thanks				|wim-thanks|
 
 
 ==============================================================================
@@ -65,16 +64,6 @@ CHANGELOG						*wim-changelog* {{{
 
 0.0.0:
 - Initial upload
-
-}}}
-==============================================================================
-THANKS						*wim-thanks* {{{
-
-Thanks to:
-
-- mattn (who invented wwwrenderer.vim)
-- anekos (who gave the great name to this plugin)
-- thinca (who invented openbuf.vim)
 
 }}}
 ==============================================================================

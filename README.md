@@ -5,3 +5,10 @@ powered by text web browser engine [wwwrenderer.vim](https://github.com/mattn/ww
 # Requirements
 - [wwwrenderer.vim](https://github.com/mattn/wwwrenderer-vim)
 - [openbuf.vim](https://github.com/thinca/vim-openbuf)
+
+# Thanks
+Thanks to:
+
+- mattn (who invented wwwrenderer.vim)
+- anekos (who gave the great name to this plugin)
+- thinca (who invented openbuf.vim)
