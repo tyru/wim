@@ -130,7 +130,7 @@ function! s:wim_get_buffer_text(url) "{{{
     try
         return wwwrenderer#render(a:url)
     catch
-        call s:echomsg('WarningMsg', 'wwwrenderer#render() throwed an exception.')
+        call s:echomsg('WarningMsg', 'wwwrenderer#render() threw an exception.')
         call s:echomsg('WarningMsg', 'v:exception = '.v:exception)
         call s:echomsg('WarningMsg', 'v:throwpoint = '.v:throwpoint)
         return ''
